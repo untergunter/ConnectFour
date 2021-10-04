@@ -3,14 +3,20 @@ from player import Player
 
 class C4Game:
 
-    def __init__(self,player_1:Player,player_2:Player):
+    def __init__(self,player_1:Player
+                 ,player_2:Player):
         self.players = (player_1,player_2)
         self.board = Board()
 
     def play_game(self,view_game:bool):
-        """ main function of the game """
-        game_over = False
-        while not game_over:
+        """
+        takes action from players by turn and  apply to board
+        also handles victory and tie.
+        :param view_game:
+        :return:
+        """
+        game_is_on = True
+        while game_is_on:
             for player_number,player in enumerate(self.players,1):
                 if view_game:
                     self.board.print_board()
@@ -23,12 +29,12 @@ class C4Game:
                     if view_game:
                         self.board.print_board()
                     print(f"player {player_number} won")
-                    game_over = True
+                    game_is_on = False
                     break
 
                 if self.board.is_full():
                     print("tie")
-                    game_over = True
+                    game_is_on = False
                     break
 
 

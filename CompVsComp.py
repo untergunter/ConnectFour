@@ -1,5 +1,5 @@
 from game import C4Game
-from player import  RandomAutoPlayer
+from player import RandomAutoPlayer
 
 if __name__ == '__main__':
     p1 = RandomAutoPlayer()

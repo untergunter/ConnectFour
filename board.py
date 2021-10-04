@@ -5,23 +5,33 @@ class Board:
     def __init__(self):
         self.state = np.zeros((8,8))
 
-    def print_board(self):
-        """ prints the board """
+    def print_board(self)->None:
+        """
+        prints the board
+        :return: None
+        """
         print(self.state)
 
 
-    def get_open_columns(self):
-        """ returns True if column is open, False if not
-        for every column in board """
+    def get_open_columns(self)->np.ndarray:
+        """
+        for every column in board
+        returns True if column is open, False if not
+        :return: np.ndarray
+        """
         top_is_empty = self.state[0:1].flatten() == 0
         open_column_indexes = np.argwhere(top_is_empty == True).flatten()
         return open_column_indexes
 
     def get_state(self,player_number):
-        """ player needs to see his placed places as 1,
-         other player locations as -1
-         and free places as 0
-         while board has 0 as free, 1 player 1 and 2 as player 2"""
+        """
+        player needs to see his placed places as 1,
+        other player locations as -1
+        and free places as 0
+        while board has 0 as free, 1 player 1 and 2 as player 2
+        :param player_number:
+        :return:
+        """
         board = self.state.copy()
         board_to_player_perspective = {1:1 if player_number==1 else -1,
                                        2:-1 if player_number==1 else 1}
@@ -29,18 +39,24 @@ class Board:
         return player_view_board
 
     def get_open_index_in_column(self,column):
-        """ find the lowest open in a given column"""
+        """
+        find the lowest placeable cell in a given column
+        :param column:
+        :return:
+        """
         available_rows_in_column = np.argwhere(self.state[:, column] == 0)
         if len(available_rows_in_column)==0:
             return None
         lower_row_in_column = np.max(available_rows_in_column)
         return lower_row_in_column
 
-    def is_full(self):
-        """ chaks if board has any open space """
-        is_full = not 0 in self.state
+    def is_full(self)->bool:
+        """
+        checks if board has any open space
+        :return:
+        """
+        is_full = ~ (0 in self.state)
         return is_full
-
 
     def column_has_4(self,row, column):
         if row>4:
