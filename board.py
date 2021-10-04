@@ -117,10 +117,13 @@ class Board:
         return player_won
 
 
-    def set(self,column,value_to_set):
+    def play_move(self, column, value_to_set):
         row = self.get_open_index_in_column(column)
         assert row is not None, f"{column} is full, cant place there"
         assert self.state[row,column]==0 , f"board[{row},{column}] is not empty"
         self.state[row, column] = value_to_set
         won = self.Check_if_won(row, column)
         return won
+
+    def set_state(self,state):
+        self.state = state

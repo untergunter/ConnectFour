@@ -17,7 +17,7 @@ class C4Game:
                 can_place_at = self.board.get_open_columns()
                 board_state = self.board.get_state(player_number)
                 column_to_place = player.select_next_move(board_state,can_place_at)
-                player_won = self.board.set(column_to_place,player_number)
+                player_won = self.board.play_move(column_to_place, player_number)
 
                 if player_won:
                     if view_game:
