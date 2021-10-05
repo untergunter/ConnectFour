@@ -44,7 +44,7 @@ class Board:
         :param column:
         :return:
         """
-        available_rows_in_column = np.argwhere(self.state[:, column] == 0)
+        available_rows_in_column = np.argwhere(self.state[:, column] == 0).flatten()
         if len(available_rows_in_column)==0:
             return None
         lower_row_in_column = np.max(available_rows_in_column)
@@ -55,7 +55,7 @@ class Board:
         checks if board has any open space
         :return:
         """
-        is_full = ~ (0 in self.state)
+        is_full = not 0 in self.state
         return is_full
 
     def column_has_4(self,row, column):

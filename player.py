@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import numpy as np
 from board import Board
 
+
 class Player(ABC):
     """ only plays next move """
     @abstractmethod
@@ -9,13 +10,6 @@ class Player(ABC):
                          top_column_is_open: np.ndarray):
         pass
 
-
-class RandomAutoPlayer(Player):
-    """ plays next move randomly """
-    def select_next_move(self, board_state: np.ndarray,
-                         top_column_is_open: np.ndarray):
-        column = np.random.choice(top_column_is_open)
-        return column
 
 class HumanPlayer(Player):
     """ plays move by preasing 1-8"""
@@ -30,11 +24,20 @@ class HumanPlayer(Player):
         :return:
         """
         user_column = -1
-        top_column_is_open = {str(column+1) for column in top_column_is_open}
+        top_column_is_open = [str(column+1) for column in top_column_is_open]
         while user_column not in top_column_is_open:
             user_column = input(f'please select column from {top_column_is_open}')
         selected_column = int(user_column)-1
         return selected_column
+
+
+class RandomAutoPlayer(Player):
+    """ plays next move randomly """
+    def select_next_move(self, board_state: np.ndarray,
+                         top_column_is_open: np.ndarray):
+        column = np.random.choice(top_column_is_open)
+        return column
+
 
 class SingleStepAutoPlayer(Player):
     def __init__(self):
@@ -78,3 +81,5 @@ class SingleStepAutoPlayer(Player):
             if won:
                 return column
         return None
+
+
