@@ -23,7 +23,7 @@ class Board:
         open_column_indexes = np.argwhere(top_is_empty == True).flatten()
         return open_column_indexes
 
-    def get_state(self,player_number):
+    def get_state_by_player_perspective(self, player_number):
         """
         player needs to see his placed places as 1,
         other player locations as -1
@@ -34,7 +34,8 @@ class Board:
         """
         board = self.state.copy()
         board_to_player_perspective = {1:1 if player_number==1 else -1,
-                                       2:-1 if player_number==1 else 1}
+                                       2:-1 if player_number==1 else 1,
+                                       0:0}
         player_view_board = np.vectorize(board_to_player_perspective.get)(board)
         return player_view_board
 
