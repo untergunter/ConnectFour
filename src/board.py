@@ -143,3 +143,8 @@ class Board:
 
     def set_state(self,state):
         self.state = state
+
+
+if __name__ == "__main__":
+    b = Board()
+    print(b.get_open_columns())
