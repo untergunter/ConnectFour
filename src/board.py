@@ -75,7 +75,7 @@ class Board:
                 in_this_row+=1
             else: break
         for column_to_the_left in range(column-1,-1,-1):
-            if self.state[0,column_to_the_left] == player_number:
+            if self.state[row,column_to_the_left] == player_number:
                 in_this_row+=1
             else: break
 
@@ -126,11 +126,11 @@ class Board:
 
     def Check_if_won(self,row, column):
         """ after placing at row,column chek if player won"""
-        player_won = self.column_has_4(row, column) | \
-                     self.row_has_4(row,column) | \
-                     self.top_left_to_bottom_right_has_4(row, column) | \
-                     self.top_right_to_bottom_left_has_4(row, column)
-
+        player_won = any([self.column_has_4(row, column),
+                         self.row_has_4(row,column),
+                         self.top_left_to_bottom_right_has_4(row, column),
+                         self.top_right_to_bottom_left_has_4(row, column)
+                         ])
         return player_won
 
 

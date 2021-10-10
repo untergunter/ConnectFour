@@ -55,6 +55,14 @@ def test_board_row_has_4():
     assert test_board.row_has_4(0,6) is False
     assert test_board.row_has_4(0,7) is False
 
+    new_state = np.zeros((8, 8))
+    new_state[7,2:6] = 1
+    test_board.set_state(new_state)
+    assert test_board.row_has_4(7, 2) is True
+    assert test_board.row_has_4(7, 3) is True
+    assert test_board.row_has_4(7, 4) is True
+    assert test_board.row_has_4(7, 5) is True
+
 def test_board_top_left_to_bottom_right_has_4():
     new_state = np.zeros((8, 8))
     for i in range(3):
