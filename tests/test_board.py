@@ -69,3 +69,27 @@ def test_board_top_left_to_bottom_right_has_4():
     test_board.set_state(new_state)
     for i in range(4):
         assert test_board.top_left_to_bottom_right_has_4(i,i) is True
+
+def test_board_top_right_to_bottom_left_has_4():
+    new_state = np.zeros((8, 8))
+    row = 5
+    column = 3
+    for i in range(3):
+        new_state[row, column] = 1
+        row -= 1
+        column += 1
+    test_board = Board()
+    test_board.set_state(new_state)
+    row = 5
+    column = 3
+    for i in range(3):
+        assert test_board.top_right_to_bottom_left_has_4(row,column) is False
+        row -= 1
+        column += 1
+    new_state[2, 6] = 1
+    row = 5
+    column = 3
+    for i in range(1, 4):
+        assert test_board.top_right_to_bottom_left_has_4(row,column) is True
+        row -= 1
+        column += 1
