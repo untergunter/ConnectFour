@@ -59,17 +59,18 @@ class Board:
         is_full = not 0 in self.state
         return is_full
 
-    def column_has_4(self,row, column):
+    def column_has_4(self, row, column):
         if row>4:
             return False
         all_values_under_last_entry = np.unique(self.state[row:row+4,column])
-        won =  len(all_values_under_last_entry) == 1
+        won = len(all_values_under_last_entry) == 1
         return won
 
     def row_has_4(self,row, column):
         in_this_row = 1
         player_number = self.state[row, column]
-        for column_to_the_right in range(column,8):
+        assert player_number != 0
+        for column_to_the_right in range(column+1,8):
             if self.state[row,column_to_the_right] == player_number:
                 in_this_row+=1
             else: break
@@ -125,12 +126,11 @@ class Board:
 
     def Check_if_won(self,row, column):
         """ after placing at row,column chek if player won"""
-        player_won = bool(
-            self.column_has_4(row, column) +
-            self.row_has_4(row,column) +
-            self.top_left_to_bottom_right_has_4(row, column) +
-            self.top_right_to_bottom_left_has_4(row, column)
-        )
+        player_won = self.column_has_4(row, column) | \
+                     self.row_has_4(row,column) | \
+                     self.top_left_to_bottom_right_has_4(row, column) | \
+                     self.top_right_to_bottom_left_has_4(row, column)
+
         return player_won
 
 
@@ -147,5 +147,4 @@ class Board:
 
 
 if __name__ == "__main__":
-    b = Board()
-    print(b.get_open_columns())
+    pass
