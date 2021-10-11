@@ -61,7 +61,7 @@ class SingleStepAutoPlayer(Player):
             return move_to_win
 
         """ find and return rival wining move """
-        move_not_to_lose = self.winning_move_for_player(board_state, 1, top_column_is_open)
+        move_not_to_lose = self.winning_move_for_player(board_state, -1, top_column_is_open)
         if move_not_to_lose:
             return move_not_to_lose
 
@@ -81,5 +81,3 @@ class SingleStepAutoPlayer(Player):
             if won:
                 return column
         return None
-
-

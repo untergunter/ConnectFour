@@ -143,7 +143,7 @@ class Board:
         return won
 
     def set_state(self,state):
-        self.state = state
+        self.state = state.copy()
 
 
 if __name__ == "__main__":

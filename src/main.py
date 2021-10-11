@@ -1,10 +1,12 @@
 from kivy.app import App
-from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
+
+from kivy.clock import Clock
+
 from player import SingleStepAutoPlayer
-from time import sleep
 from board import Board
+
 BLACK = [0, 0, 0, 0]
 RED = [1, 0, 0, 1]
 GREEN = [0, 1, 0, 1]
@@ -19,7 +21,7 @@ class Find4App(App):
         self.computer_player = SingleStepAutoPlayer()
         self.player_color = GREEN
         self.computer_color = RED
-        self.form = GridLayout(cols=8)
+        self.game_ui = GridLayout(cols=8)
         self.buttons =[]
 
         for location_index in range(64):
@@ -28,8 +30,8 @@ class Find4App(App):
             button.column = location_index % 8
             button.row = location_index // 8
             self.buttons.append(button)
-            self.form.add_widget(self.buttons[-1])
-        return self.form
+            self.game_ui.add_widget(self.buttons[-1])
+        return self.game_ui
 
 
     def column_and_row_to_button_index(self,row,column):
@@ -65,8 +67,9 @@ class Find4App(App):
                 print('victory!!!')
             elif self.board.is_full():
                 print("tie")
-            else :
-                self.computer_take_turn()
+            else:
+                Clock.schedule_once(lambda x: self.computer_take_turn(),0.5)
+
 
 
 
