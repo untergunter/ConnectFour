@@ -54,25 +54,23 @@ class Find4App(App):
         elif self.board.is_full():
             print("tie")
 
+    def aet_selected_column(self,column):
+        row = self.board.get_open_index_in_column(column)  # row to insert to
+        player_won = self.board.play_move(column, 1)
+        self.set_color_ui(row, column, self.player_color)
+        return player_won
 
     def select_column(self,instance):
         column = instance.column
         valid_columns = self.board.get_open_columns()
         if column in valid_columns:
-            row = self.board.get_open_index_in_column(column) # row to insert to
-            player_won = self.board.play_move(column, 1)
-            self.set_color_ui(row,column,self.player_color)
-
+            player_won = self.aet_selected_column(column)
             if player_won:
                 print('victory!!!')
             elif self.board.is_full():
                 print("tie")
             else:
                 Clock.schedule_once(lambda x: self.computer_take_turn(),0.5)
-
-
-
-
 
 if __name__ == '__main__':
     Find4App().run()
